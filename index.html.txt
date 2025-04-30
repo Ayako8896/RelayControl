@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Relay Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #e0f7ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      color: #007acc;
+    }
+    button {
+      font-size: 24px;
+      padding: 15px 30px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      background-color: #007acc;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #005f99;
+    }
+  </style>
+</head>
+<body>
+  <h1>Relay Control</h1>
+  <button onclick="sendCommand(1)">Turn ON</button>
+  <button onclick="sendCommand(0)">Turn OFF</button>
+
+  <script>
+    function sendCommand(value) {
+      const apiKey = 'Y9UZSEKQI52AY8TO';
+      const url = `https://api.thingspeak.com/update?api_key=${apiKey}&field1=${value}`;
+
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          alert(value == 1 ? "Relay ON command sent" : "Relay OFF command sent");
+        })
+        .catch(error => {
+          alert("Error sending command");
+          console.error(error);
+        });
+    }
+  </script>
+</body>
+</html>
